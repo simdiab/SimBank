@@ -1,6 +1,7 @@
 package org.simbank;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.simbank.entities.Account;
@@ -8,6 +9,18 @@ import org.simbank.entities.Transaction;
 import org.simbank.entities.TransactionRecord;
 
 public class TransactionManager {
+	
+	private void lodgeIntoAccount(Account a, BigDecimal amount) {
+		BigDecimal accountNewBalance = a.credit(amount);
+		TransactionRecord transactionRecord = new TransactionRecord(new Date(), a, "Credit", amount, accountNewBalance);
+		a.getTransactionRecordList().add(transactionRecord);
+	}
+	
+	private void withdrawFromAccount(Account a, BigDecimal amount) {
+		BigDecimal accountNewBalance = a.debit(amount);
+		TransactionRecord transactionRecord = new TransactionRecord(new Date(), a, "Debit", amount, accountNewBalance);
+		a.getTransactionRecordList().add(transactionRecord);
+	}
 
 	private void processAndRecordTransaction(Transaction t) {
 		BigDecimal accountFromNewBalance = t.getAccountFrom().debit(t.getAmount());
