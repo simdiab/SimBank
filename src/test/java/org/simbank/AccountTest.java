@@ -2,6 +2,8 @@ package org.simbank;
 
 import java.math.BigDecimal;
 
+import org.simbank.entities.Account;
+
 import junit.framework.TestCase;
 
 public class AccountTest extends TestCase {

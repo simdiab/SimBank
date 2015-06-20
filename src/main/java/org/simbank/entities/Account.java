@@ -1,12 +1,14 @@
-package org.simbank;
+package org.simbank.entities;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Account {
 	private String name;
 	private String address;
 	private String phoneNumber;
 	private BigDecimal balance;
+	private List<TransactionRecord> transactionRecordList;
 
 	public String getName() {
 		return name;
@@ -38,6 +40,14 @@ public class Account {
 
 	public void setBalance(BigDecimal balance) {
 		this.balance = balance;
+	}
+
+	public List<TransactionRecord> getTransactionRecordList() {
+		return transactionRecordList;
+	}
+
+	public void setTransactionRecordList(List<TransactionRecord> transactionRecordList) {
+		this.transactionRecordList = transactionRecordList;
 	}
 
 	public BigDecimal debit(BigDecimal amount) {
