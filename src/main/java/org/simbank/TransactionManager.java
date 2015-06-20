@@ -10,29 +10,44 @@ import org.simbank.entities.TransactionRecord;
 
 public class TransactionManager {
 	
-	public void lodgeIntoAccount(Account a, BigDecimal amount) {
-		BigDecimal accountNewBalance = a.credit(amount);
-		TransactionRecord transactionRecord = new TransactionRecord(new Date(), a, "Credit", amount, accountNewBalance);
-		a.getTransactionRecordList().add(transactionRecord);
+	public void processAndRecordTransaction(Transaction t) {
+		if (("Transfer".equals(t.getTransactionType())) && (t.getAccountFrom() != null) && (t.getAccountTo() != null)){
+			boolean success = transferBetweenAccounts(t);
+		}
+		else if (("Withdrawal".equals(t.getTransactionType())) && (t.getAccountFrom() != null)) {
+			boolean success = withdrawFromAccount(t);
+		}
+		else if (("Lodgement".equals(t.getTransactionType())) && (t.getAccountTo() != null)) {
+			boolean success = lodgeIntoAccount(t);
+		}
 	}
 	
-	public void withdrawFromAccount(Account a, BigDecimal amount) {
-		BigDecimal accountNewBalance = a.debit(amount);
-		TransactionRecord transactionRecord = new TransactionRecord(new Date(), a, "Debit", amount, accountNewBalance);
-		a.getTransactionRecordList().add(transactionRecord);
-	}
-
-	public void processAndRecordTransaction(Transaction t) {
+	private boolean transferBetweenAccounts(Transaction t) {
 		BigDecimal accountFromNewBalance = t.getAccountFrom().debit(t.getAmount());
 		BigDecimal accountToNewBalance = t.getAccountTo().credit(t.getAmount());
 		
 		TransactionRecord accountFromTransactionRecord = new TransactionRecord(t.getDate(), t.getAccountFrom(), "Debit", t.getAmount(), accountFromNewBalance);
 		t.getAccountFrom().getTransactionRecordList().add(accountFromTransactionRecord);
-		
+
 		TransactionRecord accountToTransactionRecord = new TransactionRecord(t.getDate(), t.getAccountTo(), "Credit", t.getAmount(), accountToNewBalance);
 		t.getAccountTo().getTransactionRecordList().add(accountToTransactionRecord);
+		return true;
+	}
+		
+	private boolean lodgeIntoAccount(Transaction t) {
+		BigDecimal accountToNewBalance = t.getAccountTo().credit(t.getAmount());
+		TransactionRecord accountToTransactionRecord = new TransactionRecord(t.getDate(), t.getAccountTo(), "Credit", t.getAmount(), accountToNewBalance);
+		t.getAccountTo().getTransactionRecordList().add(accountToTransactionRecord);
+		return true;
 	}
 	
+	private boolean withdrawFromAccount(Transaction t) {
+		BigDecimal accountFromNewBalance = t.getAccountFrom().debit(t.getAmount());
+		TransactionRecord accountFromTransactionRecord = new TransactionRecord(t.getDate(), t.getAccountFrom(), "Debit", t.getAmount(), accountFromNewBalance);
+		t.getAccountFrom().getTransactionRecordList().add(accountFromTransactionRecord);
+		return true;
+	}
+
 	public List<TransactionRecord> getStatementForAccount(Account a) {
 		return a.getTransactionRecordList();
 	}

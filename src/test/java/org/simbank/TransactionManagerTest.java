@@ -15,14 +15,20 @@ public class TransactionManagerTest extends TestCase {
 	public void testLodgeIntoAccount() {
 		Account a = new Account();
 		a.setBalance(new BigDecimal("0.00"));
-		tm.lodgeIntoAccount(a, new BigDecimal("20.99"));
+		
+		Transaction t = new Transaction(new Date(), "Lodgement", new BigDecimal("20.99"), a, null);
+		
+		tm.processAndRecordTransaction(t);
 		assertEquals("20.99", a.getBalance().toString());
 	}
 	
 	public void testWithdrawFromAccount() {
 		Account a = new Account();
 		a.setBalance(new BigDecimal("20.99"));
-		tm.withdrawFromAccount(a, new BigDecimal("20.99"));
+		
+		Transaction t = new Transaction(new Date(), "Withdrawal", new BigDecimal("20.99"), null, a);
+		
+		tm.processAndRecordTransaction(t);
 		assertEquals("0.00", a.getBalance().toString());
 	}
 	
