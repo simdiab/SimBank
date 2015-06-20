@@ -22,4 +22,14 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.1.5.v20140505</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>
