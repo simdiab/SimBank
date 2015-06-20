@@ -10,19 +10,19 @@ import org.simbank.entities.TransactionRecord;
 
 public class TransactionManager {
 	
-	private void lodgeIntoAccount(Account a, BigDecimal amount) {
+	public void lodgeIntoAccount(Account a, BigDecimal amount) {
 		BigDecimal accountNewBalance = a.credit(amount);
 		TransactionRecord transactionRecord = new TransactionRecord(new Date(), a, "Credit", amount, accountNewBalance);
 		a.getTransactionRecordList().add(transactionRecord);
 	}
 	
-	private void withdrawFromAccount(Account a, BigDecimal amount) {
+	public void withdrawFromAccount(Account a, BigDecimal amount) {
 		BigDecimal accountNewBalance = a.debit(amount);
 		TransactionRecord transactionRecord = new TransactionRecord(new Date(), a, "Debit", amount, accountNewBalance);
 		a.getTransactionRecordList().add(transactionRecord);
 	}
 
-	private void processAndRecordTransaction(Transaction t) {
+	public void processAndRecordTransaction(Transaction t) {
 		BigDecimal accountFromNewBalance = t.getAccountFrom().debit(t.getAmount());
 		BigDecimal accountToNewBalance = t.getAccountTo().credit(t.getAmount());
 		
@@ -33,7 +33,7 @@ public class TransactionManager {
 		t.getAccountTo().getTransactionRecordList().add(accountToTransactionRecord);
 	}
 	
-	private List<TransactionRecord> getStatementForAccount(Account a) {
+	public List<TransactionRecord> getStatementForAccount(Account a) {
 		return a.getTransactionRecordList();
 	}
 }

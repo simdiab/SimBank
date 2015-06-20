@@ -10,6 +10,15 @@ public class Transaction {
 	private Account accountTo;
 	private Account accountFrom;
 	
+	public Transaction(Date date, String transactionType, BigDecimal amount,
+			Account accountTo, Account accountFrom) {
+		super();
+		this.date = date;
+		this.transactionType = transactionType;
+		this.amount = amount;
+		this.accountTo = accountTo;
+		this.accountFrom = accountFrom;
+	}
 	public Date getDate() {
 		return date;
 	}

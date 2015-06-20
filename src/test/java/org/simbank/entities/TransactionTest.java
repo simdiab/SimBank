@@ -1,4 +1,4 @@
-package org.simbank;
+package org.simbank.entities;
 
 import junit.framework.TestCase;
 

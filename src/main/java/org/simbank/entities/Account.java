@@ -1,6 +1,7 @@
 package org.simbank.entities;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
@@ -9,6 +10,11 @@ public class Account {
 	private String phoneNumber;
 	private BigDecimal balance;
 	private List<TransactionRecord> transactionRecordList;
+	
+	public Account() {
+		super();
+		transactionRecordList = new ArrayList<TransactionRecord>();
+	}
 
 	public String getName() {
 		return name;
