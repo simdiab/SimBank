@@ -26,17 +26,18 @@ public class BankLogicImpl implements BankLogic {
 	}
  
 	public void lodge(Account a, String amount) {
-		Transaction t = new Transaction(new Date(), "Lodgement", new BigDecimal(amount), a, null);
+		Transaction t = new Transaction(new Date(), "Lodgement", new BigDecimal(amount), null, a);
 		transactionManager.lodgeIntoAccount(t);	
 	}
 	
 	public void withdraw(Account a, String amount) {
-		Transaction t = new Transaction(new Date(), "WithDrawal", new BigDecimal(amount), null, a);
+		Transaction t = new Transaction(new Date(), "WithDrawal", new BigDecimal(amount), a, null);
 		transactionManager.withdrawFromAccount(t);	
 	}
 	
-	public void transfer() {
-		
+	public void transfer(Account accountFrom, Account accountTo, String amount) {
+		Transaction t = new Transaction(new Date(), "WithDrawal", new BigDecimal(amount), accountFrom, accountTo);
+		transactionManager.withdrawFromAccount(t);
 	}
 	
 	public void getTransactions() {

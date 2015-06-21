@@ -31,6 +31,8 @@ public class Cli {
          			break;
          case "w" : withdraw(console, bankLogic);
 		   			break;
+         case "t" : transfer(console, bankLogic);
+					break;
          case "e" : exitWithMessage();
          			break;
          default : executeInput(console, bankLogic);
@@ -88,7 +90,37 @@ public class Cli {
 		executeInput(console, bankLogic);
 	}
 	
-
+	private static void transfer(Console console, BankLogic bankLogic){
+		console.printf("You've chosen to transfer money between two accounts%n");
+		console.printf("Available accounts:%n");
+		for (Account a : bankLogic.getAccountList()) {
+			console.printf("Account: " + a.getName() + "%n");
+		}
+		String accountName = console.readLine("Enter the name of the account to transfer from: %n");
+		Account accountFrom = BankUtil.getAccountByName(bankLogic.getAccountList(), accountName);
+		if (accountFrom == null) {
+			console.printf("Account not found. Please try again.%n");
+			lodge(console, bankLogic);
+		}
+		console.printf("Account found: " + accountFrom.getName() + ".%n Account starting balance: " + accountFrom.getBalance() + ".%n");
+		
+		accountName = console.readLine("Enter the name of the account to transfer from: %n");
+		Account accountTo = BankUtil.getAccountByName(bankLogic.getAccountList(), accountName);
+		if (accountTo == null) {
+			console.printf("Account not found. Please try again.%n");
+			lodge(console, bankLogic);
+		}
+		console.printf("Account found: " + accountTo.getName() + ".%n Account starting balance: " + accountTo.getBalance() + ".%n");
+		
+		
+		String amount = console.readLine("Enter the amount of money to transfer.%n");
+		
+		bankLogic.transfer(accountFrom, accountTo, amount);
+		console.printf("Originating account closing balance: " + accountFrom.getBalance() + ".%n");
+		console.printf("Destination account closing balance: " + accountFrom.getBalance() + ".%n");
+		executeInput(console, bankLogic);
+		
+	}
 	
 	private static void exitWithMessage() {
 		System.out.println("Thanks for using SimBank. Now exiting");

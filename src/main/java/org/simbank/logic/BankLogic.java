@@ -8,7 +8,7 @@ public interface BankLogic {
 	public void createAccount(String name, String address, String phoneNumber);
 	public void lodge(Account a, String amount);
 	public void withdraw(Account a, String amount);
-	public void transfer();
+	public void transfer(Account accountFrom, Account accountTo, String amount);
 	public void getTransactions();
 	public List<Account> getAccountList();
 }
