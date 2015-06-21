@@ -4,6 +4,7 @@ import java.io.Console;
 import java.math.BigDecimal;
 
 import org.simbank.entities.Account;
+import org.simbank.entities.TransactionRecord;
 import org.simbank.logic.BankLogic;
 import org.simbank.logic.BankUtil;
 import org.simbank.logic.impl.BankLogicImpl;
@@ -30,6 +31,7 @@ public class Cli {
 				+ "[l]odge money%n "
 				+ "[w]ithdraw money%n "
 				+ "[t]ransfer between accounts%n "
+				+ "[v]iew account statement%n "
 				+ "[e]xit%n");
         switch (input) {
          case "c" : createAccount(console, bankLogic);
@@ -39,6 +41,8 @@ public class Cli {
          case "w" : withdraw(console, bankLogic);
 		   			break;
          case "t" : transfer(console, bankLogic);
+					break;
+         case "v" : printStatement(console, bankLogic);
 					break;
          case "e" : exitWithMessage();
          			break;
@@ -123,10 +127,31 @@ public class Cli {
 		String amount = console.readLine("Enter the amount of money to transfer.%n");
 		
 		bankLogic.transfer(accountFrom, accountTo, amount);
-		console.printf("Originating account " + accountFrom.getName() + ". Closing balance: " + accountFrom.getBalance() + ".%n");
-		console.printf("Destination account " + accountTo.getName() + ". Closing balance: " + accountTo.getBalance() + ".%n");
+		console.printf("Originating account: " + accountFrom.getName() + ". Closing balance: " + accountFrom.getBalance() + ".%n");
+		console.printf("Destination account: " + accountTo.getName() + ". Closing balance: " + accountTo.getBalance() + ".%n");
 		executeInput(console, bankLogic);
+	}
+	
+	private static void printStatement(Console console, BankLogic bankLogic) {
+		console.printf("You've chosen to view an account statement %n");
+		console.printf("Available accounts:%n");
+		for (Account a : bankLogic.getAccountList()) {
+			console.printf("Account: " + a.getName() + "%n");
+		}
+		String accountName = console.readLine("Enter the name of the account to view: %n");
+		Account a = BankUtil.getAccountByName(bankLogic.getAccountList(), accountName);
+		if (a == null) {
+			console.printf("Account not found. Please try again.%n");
+			lodge(console, bankLogic);
+		}
+		console.printf("Account found: " + a.getName() + ".%nAccount starting balance: " + a.getBalance() + ".%n");
 		
+		console.printf("Action\t\tAmount\t\tBalance%n");
+		for (TransactionRecord tr : a.getTransactionRecordList()) {
+			console.printf(tr.getAction() + "\t" + tr.getAmount() + "\t\t" + tr.getRunningBalance() + "%n");
+		}
+		console.printf("Final balance:\t" + a.getBalance() + "%n");
+		executeInput(console, bankLogic);
 	}
 	
 	private static void exitWithMessage() {
