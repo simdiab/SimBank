@@ -8,7 +8,7 @@ import org.simbank.entities.Transaction;
 import org.simbank.entities.TransactionRecord;
 
 public interface TransactionManager {
-	public void processAndRecordTransaction(Transaction t);
+//	public void processAndRecordTransaction(Transaction t);
 	
 	public void transferBetweenAccounts(Transaction t);
 		

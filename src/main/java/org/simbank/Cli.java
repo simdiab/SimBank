@@ -10,7 +10,6 @@ import org.simbank.logic.impl.BankLogicImpl;
 
 public class Cli {
 	
-	
 	public static void start(){
 		BankLogic bankLogic = new BankLogicImpl();
 		Console console = System.console();
