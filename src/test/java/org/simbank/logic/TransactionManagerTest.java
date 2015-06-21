@@ -1,4 +1,4 @@
-package org.simbank;
+package org.simbank.logic;
 
 import java.math.BigDecimal;
 import java.util.Date;
