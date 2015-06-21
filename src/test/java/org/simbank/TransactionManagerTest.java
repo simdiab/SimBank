@@ -36,6 +36,7 @@ public class TransactionManagerTest extends TestCase {
 		TransactionRecord tr = a.getTransactionRecordList().get(0);
 		assertEquals("Lodgement", tr.getAction());
 		assertEquals("20.99", tr.getRunningBalance().toString());
+		assertEquals(t, tr.getTransaction());
 	}
 	
 	public void testWithdrawFromAccount() {
@@ -61,6 +62,7 @@ public class TransactionManagerTest extends TestCase {
 		TransactionRecord tr = a.getTransactionRecordList().get(0);
 		assertEquals("Withdrawal", tr.getAction());
 		assertEquals("0.00", tr.getRunningBalance().toString());
+		assertEquals(t, tr.getTransaction());
 	}
 	
 	public void testTransfer() {
@@ -91,9 +93,11 @@ public class TransactionManagerTest extends TestCase {
 		TransactionRecord tr1 = accountFrom.getTransactionRecordList().get(0);
 		assertEquals("Transfer", tr1.getAction());
 		assertEquals("50.00", tr1.getRunningBalance().toString());
+		assertEquals(t, tr1.getTransaction());
 		
 		TransactionRecord tr2 = accountFrom.getTransactionRecordList().get(0);
 		assertEquals("Transfer", tr2.getAction());
 		assertEquals("50.00", tr2.getRunningBalance().toString());
+		assertEquals(t, tr2.getTransaction());
 	}
 }

@@ -9,15 +9,17 @@ public class TransactionRecord {
 	private String action; //Debit or Credit
 	private BigDecimal amount;
 	private BigDecimal runningBalance;
+	private Transaction transaction;
 	
 	public TransactionRecord(Date date, Account accountActedOn, String action,
-			BigDecimal amount, BigDecimal runningBalance) {
+			BigDecimal amount, BigDecimal runningBalance, Transaction transaction) {
 		super();
 		this.setDate(date);
 		this.setAccountActedOn(accountActedOn);
 		this.setAction(action);
 		this.setAmount(amount);
 		this.setRunningBalance(runningBalance);
+		this.setTransaction(transaction);
 	}
 	public Date getDate() {
 		return date;
@@ -48,5 +50,11 @@ public class TransactionRecord {
 	}
 	public void setRunningBalance(BigDecimal runningBalance) {
 		this.runningBalance = runningBalance;
+	}
+	public Transaction getTransaction() {
+		return transaction;
+	}
+	public void setTransaction(Transaction transaction) {
+		this.transaction = transaction;
 	}
 }
