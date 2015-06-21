@@ -37,7 +37,7 @@ public class BankLogicImpl implements BankLogic {
 	
 	public void transfer(Account accountFrom, Account accountTo, String amount) {
 		Transaction t = new Transaction(new Date(), "WithDrawal", new BigDecimal(amount), accountFrom, accountTo);
-		transactionManager.withdrawFromAccount(t);
+		transactionManager.transferBetweenAccounts(t);
 	}
 	
 	public void getTransactions() {

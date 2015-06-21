@@ -1,6 +1,7 @@
 package org.simbank;
 
 import java.io.Console;
+import java.math.BigDecimal;
 
 import org.simbank.entities.Account;
 import org.simbank.logic.BankLogic;
@@ -14,6 +15,8 @@ public class Cli {
 		BankLogic bankLogic = new BankLogicImpl();
 		Console console = System.console();
 		
+		createDummyData(bankLogic);
+		
         if (console == null) {
             System.err.println("No console.");
             System.exit(1);
@@ -23,7 +26,12 @@ public class Cli {
 	}
 	
 	private static void executeInput(Console console, BankLogic bankLogic) {
-		String input = console.readLine("Please enter an option.%n [c]reate account%n [l]odge money%n [w]ithdraw money%n [e]xit%n");
+		String input = console.readLine("Please enter an option.%n "
+				+ "[c]reate account%n "
+				+ "[l]odge money%n "
+				+ "[w]ithdraw money%n "
+				+ "[t]ransfer between accounts%n "
+				+ "[e]xit%n");
         switch (input) {
          case "c" : createAccount(console, bankLogic);
          			break;
@@ -104,7 +112,7 @@ public class Cli {
 		}
 		console.printf("Account found: " + accountFrom.getName() + ".%n Account starting balance: " + accountFrom.getBalance() + ".%n");
 		
-		accountName = console.readLine("Enter the name of the account to transfer from: %n");
+		accountName = console.readLine("Enter the name of the account to transfer to: %n");
 		Account accountTo = BankUtil.getAccountByName(bankLogic.getAccountList(), accountName);
 		if (accountTo == null) {
 			console.printf("Account not found. Please try again.%n");
@@ -116,8 +124,8 @@ public class Cli {
 		String amount = console.readLine("Enter the amount of money to transfer.%n");
 		
 		bankLogic.transfer(accountFrom, accountTo, amount);
-		console.printf("Originating account closing balance: " + accountFrom.getBalance() + ".%n");
-		console.printf("Destination account closing balance: " + accountFrom.getBalance() + ".%n");
+		console.printf("Originating account " + accountFrom.getName() + ". Closing balance: " + accountFrom.getBalance() + ".%n");
+		console.printf("Destination account " + accountTo.getName() + ". Closing balance: " + accountTo.getBalance() + ".%n");
 		executeInput(console, bankLogic);
 		
 	}
@@ -125,6 +133,13 @@ public class Cli {
 	private static void exitWithMessage() {
 		System.out.println("Thanks for using SimBank. Now exiting");
 		System.exit(1);
+	}
+	
+	private static void createDummyData(BankLogic bankLogic) {
+		bankLogic.createAccount("John", "123 John St", "087 123 1234");
+		BankUtil.getAccountByName(bankLogic.getAccountList(), "John").credit(new BigDecimal("100.00"));
+		bankLogic.createAccount("Mary", "987 Mary St", "086 987 6543");
+		BankUtil.getAccountByName(bankLogic.getAccountList(), "Mary").credit(new BigDecimal("200.00"));
 	}
 
 }
