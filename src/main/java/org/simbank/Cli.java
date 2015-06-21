@@ -10,7 +10,7 @@ import org.simbank.logic.impl.BankLogicImpl;
 import org.simbank.util.BankUtil;
 
 /**
- * The entry-point into the app. This class creates a GUI and receives user input.
+ * The entry-point into the app. This class creates a UI and receives user input.
  * User input is sent to an instance of BankLogic, which then creates Transaction 
  * objects that the TransactionManager will process.
  * <p>

@@ -5,8 +5,8 @@ import java.util.List;
 import org.simbank.entities.Account;
 
 /**
- * The control logic that sits between the GUI and the backend functionality.
- * The member methods of this class typically receive raw String input from the GUI
+ * The control logic that sits between the UI and the backend functionality.
+ * The member methods of this class typically receive raw String input from the UI
  * ({@link Cli}) class, and transform it into {@link Transaction} objects to be sent-to and 
  * processed-by an instance of {@link TransactionManager}.
  * <p>
