@@ -42,7 +42,7 @@ public class Cli {
 	 * @param bankLogic
 	 */
 	private static void executeInput(Console console, BankLogic bankLogic) {
-		String input = console.readLine("Please enter an option.%n "
+		String input = console.readLine("%n%nPlease enter an option.%n "
 				+ "[c]reate account%n "
 				+ "[l]odge money%n "
 				+ "[w]ithdraw money%n "
@@ -67,18 +67,18 @@ public class Cli {
 	}
 	
 	private static void createAccount(Console console, BankLogic bankLogic) {
-		console.printf("You've chosen to create an Account%n");
+		console.printf("%n%nYou've chosen to create an Account%n");
 		String accountName = console.readLine("Enter an account name: %n");
 		String accountAddress = console.readLine("Enter an address: %n");
 		String accountPhoneNumber= console.readLine("Enter a phone number: %n");
 		
 		bankLogic.createAccount(accountName, accountAddress, accountPhoneNumber);
-		console.printf("Account created with name: " + bankLogic.getAccountList().get(0).getName() + "%n");
+		console.printf("Account created with name: " + BankUtil.getAccountByName(bankLogic.getAccountList(), accountName).getName() + "%n");
 		executeInput(console, bankLogic);
 	}
 	
 	private static void lodge(Console console, BankLogic bankLogic) {
-		console.printf("You've chosen to lodge money in an account%n");
+		console.printf("%n%nYou've chosen to lodge money in an account%n");
 		console.printf("Available accounts:%n");
 		for (Account a : bankLogic.getAccountList()) {
 			console.printf("Account: " + a.getName() + "%n");
@@ -98,7 +98,7 @@ public class Cli {
 	}
 	
 	private static void withdraw(Console console, BankLogic bankLogic) {
-		console.printf("You've chosen to withdraw money from an account%n");
+		console.printf("%n%nYou've chosen to withdraw money from an account%n");
 		console.printf("Available accounts:%n");
 		for (Account a : bankLogic.getAccountList()) {
 			console.printf("Account: " + a.getName() + "%n");
@@ -122,7 +122,7 @@ public class Cli {
 	}
 	
 	private static void transfer(Console console, BankLogic bankLogic){
-		console.printf("You've chosen to transfer money between two accounts%n");
+		console.printf("%n%nYou've chosen to transfer money between two accounts%n");
 		console.printf("Available accounts:%n");
 		for (Account a : bankLogic.getAccountList()) {
 			console.printf("Account: " + a.getName() + "%n");
@@ -131,7 +131,7 @@ public class Cli {
 		Account accountFrom = BankUtil.getAccountByName(bankLogic.getAccountList(), accountName);
 		if (accountFrom == null) {
 			console.printf("Account not found. Please try again.%n");
-			lodge(console, bankLogic);
+			transfer(console, bankLogic);
 		}
 		console.printf("Account found: " + accountFrom.getName() + ".%n Account starting balance: " + accountFrom.getBalance() + ".%n");
 		
@@ -139,7 +139,7 @@ public class Cli {
 		Account accountTo = BankUtil.getAccountByName(bankLogic.getAccountList(), accountName);
 		if (accountTo == null) {
 			console.printf("Account not found. Please try again.%n");
-			lodge(console, bankLogic);
+			transfer(console, bankLogic);
 		}
 		console.printf("Account found: " + accountTo.getName() + ".%n Account starting balance: " + accountTo.getBalance() + ".%n");
 		
@@ -157,7 +157,7 @@ public class Cli {
 	}
 	
 	private static void printStatement(Console console, BankLogic bankLogic) {
-		console.printf("You've chosen to view an account statement %n");
+		console.printf("%n%nYou've chosen to view an account statement %n");
 		console.printf("Available accounts:%n");
 		for (Account a : bankLogic.getAccountList()) {
 			console.printf("Account: " + a.getName() + "%n");

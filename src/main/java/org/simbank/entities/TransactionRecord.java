@@ -22,7 +22,6 @@ import java.util.Date;
  */
 public class TransactionRecord {
 	private Date date;
-	private Account accountActedOn;
 	private String action; //Debit or Credit
 	private BigDecimal amount;
 	private BigDecimal runningBalance;
@@ -32,7 +31,6 @@ public class TransactionRecord {
 			BigDecimal amount, BigDecimal runningBalance, Transaction transaction) {
 		super();
 		this.setDate(date);
-		this.setAccountActedOn(accountActedOn);
 		this.setAction(action);
 		this.setAmount(amount);
 		this.setRunningBalance(runningBalance);
@@ -43,12 +41,6 @@ public class TransactionRecord {
 	}
 	public void setDate(Date date) {
 		this.date = date;
-	}
-	public Account getAccountActedOn() {
-		return accountActedOn;
-	}
-	public void setAccountActedOn(Account accountActedOn) {
-		this.accountActedOn = accountActedOn;
 	}
 	public String getAction() {
 		return action;
