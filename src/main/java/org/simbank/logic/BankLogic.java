@@ -6,7 +6,7 @@ import org.simbank.entities.Account;
 
 public interface BankLogic {
 	public void createAccount(String name, String address, String phoneNumber);
-	public void lodge();
+	public void lodge(Account a, String amount);
 	public void withdraw();
 	public void transfer();
 	public void getTransactions();

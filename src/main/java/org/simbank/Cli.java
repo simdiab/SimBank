@@ -2,7 +2,9 @@ package org.simbank;
 
 import java.io.Console;
 
+import org.simbank.entities.Account;
 import org.simbank.logic.BankLogic;
+import org.simbank.logic.BankUtil;
 import org.simbank.logic.impl.BankLogicImpl;
 
 public class Cli {
@@ -21,7 +23,7 @@ public class Cli {
 	}
 	
 	private static void executeInput(Console console, BankLogic bankLogic) {
-		String input = console.readLine("Please enter an option.%n [c]create account%n [l]odge money%n [w]ithdraw money%n [e]xit%n");
+		String input = console.readLine("Please enter an option.%n [c]reate account%n [l]odge money%n [w]ithdraw money%n [e]xit%n");
         switch (input) {
          case "c": createAccount(console, bankLogic);
          		   break;
@@ -45,7 +47,19 @@ public class Cli {
 	}
 	
 	private static void lodge(Console console, BankLogic bankLogic) {
+		console.printf("You've chosen to lodge money in an account%n");
+		console.printf("Available accounts:%n");
+		for (Account a : bankLogic.getAccountList()) {
+			console.printf("Account: " + a.getName() + "%n");
+		}
+		String accountName = console.readLine("Enter the name of the account to lodge money into: %n");
+		Account a = BankUtil.getAccountByName(bankLogic.getAccountList(), accountName);
+		console.printf("Account found: " + a.getName() + ".%n Account starting balance: " + a.getBalance() + ".%n");
+		String amount = console.readLine("Enter the amount of money to lodge.%n");
 		
+		bankLogic.lodge(a, amount);
+		console.printf("Account closing balance: " + a.getBalance() + ".%n");
+		executeInput(console, bankLogic);
 	}
 	
 	private static void exitWithMessage() {

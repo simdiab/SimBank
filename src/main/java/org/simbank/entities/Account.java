@@ -66,4 +66,10 @@ public class Account {
 		return this.getBalance();
 	}
 
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (obj instanceof Account)
+//		return this.getName().equals(((Account)obj).getName());
+//	}
+
 }
