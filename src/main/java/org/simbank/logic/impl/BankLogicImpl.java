@@ -31,12 +31,12 @@ public class BankLogicImpl implements BankLogic {
 	}
 	
 	public void withdraw(Account a, String amount) {
-		Transaction t = new Transaction(new Date(), "WithDrawal", new BigDecimal(amount), a, null);
+		Transaction t = new Transaction(new Date(), "Withdrawal", new BigDecimal(amount), a, null);
 		transactionManager.withdrawFromAccount(t);	
 	}
 	
 	public void transfer(Account accountFrom, Account accountTo, String amount) {
-		Transaction t = new Transaction(new Date(), "WithDrawal", new BigDecimal(amount), accountFrom, accountTo);
+		Transaction t = new Transaction(new Date(), "Transfer", new BigDecimal(amount), accountFrom, accountTo);
 		transactionManager.transferBetweenAccounts(t);
 	}
 

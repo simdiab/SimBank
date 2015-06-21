@@ -112,6 +112,10 @@ public class Cli {
 		console.printf("Account found: " + a.getName() + ".%n Account starting balance: " + a.getBalance() + ".%n");
 		String amount = console.readLine("Enter the amount of money to withdraw.%n");
 		
+		if (a.getBalance().subtract(new BigDecimal(amount)).signum() == -1 ) {
+			warnOnNegativeBalance(console, bankLogic);
+		}
+		
 		bankLogic.withdraw(a, amount);
 		console.printf("Account closing balance: " + a.getBalance() + ".%n");
 		executeInput(console, bankLogic);
@@ -141,6 +145,10 @@ public class Cli {
 		
 		
 		String amount = console.readLine("Enter the amount of money to transfer.%n");
+		
+		if (accountFrom.getBalance().subtract(new BigDecimal(amount)).signum() == -1 ) {
+			warnOnNegativeBalance(console, bankLogic);
+		}
 		
 		bankLogic.transfer(accountFrom, accountTo, amount);
 		console.printf("Originating account: " + accountFrom.getName() + ". Closing balance: " + accountFrom.getBalance() + ".%n");
@@ -173,6 +181,14 @@ public class Cli {
 	private static void exitWithMessage() {
 		System.out.println("Thanks for using SimBank. Now exiting");
 		System.exit(1);
+	}
+	
+	private static void warnOnNegativeBalance(Console console, BankLogic bankLogic) {
+		String option = console.readLine("This Account will go into negative balance (overdraft). Continue? [y/n]%n");
+		if ("N".equalsIgnoreCase(option)) {
+			console.printf("Transaction cancelled.%n");
+			executeInput(console, bankLogic);
+		}
 	}
 	
 	private static void createDummyData(BankLogic bankLogic) {
