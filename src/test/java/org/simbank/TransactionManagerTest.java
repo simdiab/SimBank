@@ -5,12 +5,13 @@ import java.util.Date;
 
 import org.simbank.entities.Account;
 import org.simbank.entities.Transaction;
+import org.simbank.logic.impl.TransactionManagerImpl;
 
 import junit.framework.TestCase;
 
 public class TransactionManagerTest extends TestCase {
 	
-	private TransactionManager tm = new TransactionManager();
+	private TransactionManagerImpl tm = new TransactionManagerImpl();
 	
 	public void testLodgeIntoAccount() {
 		Account a = new Account();
