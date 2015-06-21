@@ -30,8 +30,9 @@ public class BankLogicImpl implements BankLogic {
 		transactionManager.lodgeIntoAccount(t);	
 	}
 	
-	public void withdraw() {
-		
+	public void withdraw(Account a, String amount) {
+		Transaction t = new Transaction(new Date(), "WithDrawal", new BigDecimal(amount), null, a);
+		transactionManager.withdrawFromAccount(t);	
 	}
 	
 	public void transfer() {
