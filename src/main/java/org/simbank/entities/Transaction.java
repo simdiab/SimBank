@@ -3,6 +3,12 @@ package org.simbank.entities;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * Transaction model object.
+* <p>
+* Transactions are created by the BankLogic and sent to TransactionManager. Once a Transaction 
+* is processed successfully, a TransactionRecord is created per Account that the Transaction affects.
+*/
 public class Transaction {
 	private	Date date;
 	private String transactionType;

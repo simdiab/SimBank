@@ -1,7 +1,7 @@
 package org.simbank;
 
 /**
- * Hello world!
+ * The default Maven start class. This only calls the command-line GUI.
  *
  */
 public class App 

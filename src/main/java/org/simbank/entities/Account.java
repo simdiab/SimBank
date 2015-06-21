@@ -4,6 +4,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Account data object.
+ * <p>
+ * This is the core data structure of the whole app. There is a {@link BankLogic} instance that
+ * keeps a List of in-memory Accounts (until such time as we feel the need to add a proper 
+ * data-layer). Each Account in turns keeps a List of completed {@link TransactionRecord}s.
+ * This simple Account/TransactionRecord structure is all we need to record all banking 
+ * activity and can be used to reproduce Account histories in the form of statements.
+ * @author simon
+ *
+ */
 public class Account {
 	private String name;
 	private String address;
@@ -56,20 +67,23 @@ public class Account {
 		this.transactionRecordList = transactionRecordList;
 	}
 
+	/**
+	 * Subtracts a specified amount from the current Account's balance
+	 * @param amount
+	 * @return the new balance
+	 */
 	public BigDecimal debit(BigDecimal amount) {
 		this.setBalance(this.getBalance().subtract(amount));
 		return this.getBalance();
 	}
 
+	/**
+	 * Adds a specified amount to the current Account's balance
+	 * @param amount
+	 * @return the new balance
+	 */
 	public BigDecimal credit(BigDecimal amount) {
 		this.setBalance(this.getBalance().add(amount));
 		return this.getBalance();
 	}
-
-//	@Override
-//	public boolean equals(Object obj) {
-//		if (obj instanceof Account)
-//		return this.getName().equals(((Account)obj).getName());
-//	}
-
 }

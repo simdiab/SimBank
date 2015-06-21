@@ -39,10 +39,6 @@ public class BankLogicImpl implements BankLogic {
 		Transaction t = new Transaction(new Date(), "WithDrawal", new BigDecimal(amount), accountFrom, accountTo);
 		transactionManager.transferBetweenAccounts(t);
 	}
-	
-	public void getTransactions() {
-		
-	}
 
 	public List<Account> getAccountList() {
 		return accountList;

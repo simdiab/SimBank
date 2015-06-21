@@ -3,6 +3,23 @@ package org.simbank.entities;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * Transaction Record object model.
+ * <p>
+ * An instance of this will be created to record when a transaction has been completed.
+ * It somewhat satisfies the general accounting practice of double-entry bookkeeping, in
+ * that a TransactionRecord will be created for each account which is affected by a transaction.
+ * For example, a transfer between two accounts will result in two TransactionRecords; one for 
+ * each object.
+ * <p>
+ * Once a Transaction is processed, it will be added to a TransactionRecord via 
+ * {@link TransactionRecord#setTransaction(Transaction)}. This will facilitate an audit trail 
+ * should such a requirement occur in the future.
+ * 
+ * @see Transaction 
+ * @author simon
+ *
+ */
 public class TransactionRecord {
 	private Date date;
 	private Account accountActedOn;

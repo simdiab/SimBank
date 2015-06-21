@@ -33,8 +33,4 @@ public class TransactionManagerImpl implements TransactionManager {
 		TransactionRecord accountFromTransactionRecord = new TransactionRecord(t.getDate(), t.getAccountFrom(), t.getTransactionType(), t.getAmount(), accountFromNewBalance, t);
 		t.getAccountFrom().getTransactionRecordList().add(accountFromTransactionRecord);
 	}
-
-	public List<TransactionRecord> getStatementForAccount(Account a) {
-		return a.getTransactionRecordList();
-	}
 }
