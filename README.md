@@ -1,6 +1,6 @@
 # SimBank
 
-###Introduction
+### Introduction
 This is a CLI-driven Java app that simulates a very simplistic banking application.
 The user has the ability to do the following things:
 - Create an account.
@@ -9,13 +9,13 @@ The user has the ability to do the following things:
 - Transfer money between two accounts.
 - View a statement for an account.
 
-###Running the app
+### Running the app
 - Checkout from GitHub.
 - From the root project directory (ie the directory in which pom.xml resides), run **mvn clean install**. This will create a 'target' directory with a jar-with-dependencies file.
 - From the root project directory, run start.sh or start.bat. (Not tested on Windows). If this fails to start the app, run this command: **java -jar target/simbank-0.0.1-SNAPSHOT-jar-with-dependencies.jar**.
 - You'll be presented with a simple command-line UI.
 
-###Using the app
+### Using the app
 Upon startup, you'll be presented with a command-line menu:
 
 ```
@@ -30,7 +30,7 @@ Please enter an option.
 ```
 Simply enter an option, for example 'c' or 'l' and hit return. This will navigate you through to the next step.
 
-###Design Notes
+### Design Notes
 The app code is logically seperated into a few different modules. I would hesitate to call it an MVC design, but you could think about it as being broadly MVC-like. 
 
 - Model: Account, Transaction, TransactionRecord.
@@ -44,7 +44,7 @@ For every Transaction that is processed, a TransactionRecord object is created f
 
 In lieu of a data-access layer, the BankLogic object is also used to store the in-memory data. This is done via a very simple structure. The BankLogic object has a List of Account objects, each of which has a List of TransactionRecord objects. So in order to build a bank statement for a particular account, one would need to simply find the correct account from BankLogic.AccountList, and then get the List of TransactionRecords for that account. If we eventually add a real data layer to the app, this class will be refactored to use DAOs.
 
-###Common Java practices I've avoided
+### Common Java practices I've avoided
 
 - Checked Exceptions: I find that adding custom checked exceptions to a small project like this increases the testing load dramatically. Error-handling is handled as much as possible by the UI. If an error occurs, I prefer it to crash hard. An example of the error handling is when you try withdraw more money than is in the account. The app will warn you that you're about to go into negative balance and ask you if you want to continue. This is done in code by a simple if-else block as opposed to an exception.
 - Logging. I've avoided adding any logging statements to the code, as this does impact readabilty and add a lot of coding time to an already time-constrained project.
